@@ -1,37 +1,52 @@
-import Alert from '@enact/sandstone/Alert';
-import BodyText from '@enact/sandstone/BodyText';
-import Button from '@enact/sandstone/Button';
+import VirtualList from '@enact/sandstone/VirtualList';
+import Popup from '@enact/sandstone/Popup';
+import Item from '@enact/sandstone/Item';
 import {Header, Panel} from '@enact/sandstone/Panels';
-import {usePopup} from './MainState';
-
-import css from './Main.module.less';
 import $L from '@enact/i18n/$L';
-import {useConfigs} from '../hooks/configs';
+import { useCallback } from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+
+const ListItem = ({onClick, index, ...rest}) => {
+	const handleClickItem = useCallback(() => {
+		onClick(index);
+	}, [onClick, index]);
+
+	return <Item {...rest} onClick={handleClickItem}>{`item ${index}`}</Item>;
+}
 
 const Main = props => {
-	const data = useConfigs();
-	const {isPopupOpen, handlePopupOpen, handlePopupClose} = usePopup();
+
+	const [selectedItem, setSelectedItem] = useState(-1);
+	const [open, setOpen] = useState(selectedItem > -1);
+
+	useEffect(() => {
+		if(selectedItem > -1) {
+			setOpen(true);
+		}
+	}, [selectedItem]);
+
+	const renderItem = useCallback(({...rest}) => {
+		return <ListItem onClick={setSelectedItem} {...rest} />;
+	},[])
+
+	const handleClose = useCallback(() => {
+		setOpen(false);
+	},[])
 
 	return (
 		<Panel {...props}>
 			<Header title={$L('Enact Template')} />
-			<BodyText>{$L('This is a main page of sample application.')}</BodyText>
-			<BodyText>{`TV Info : ${JSON.stringify(data)}`}</BodyText>
-			<Button onClick={handlePopupOpen} size="small" className={css.buttonCell}>
-				{$L('This is a main page of sample application.')}
-			</Button>
-			<Alert type="overlay" open={isPopupOpen} onClose={handlePopupClose}>
-				<span>{$L('This is an alert message.')}</span>
-				<buttons>
-					<Button
-						size="small"
-						className={css.buttonCell}
-						onClick={handlePopupClose}
-					>
-						{$L('OK')}
-					</Button>
-				</buttons>
-			</Alert>
+			<VirtualList
+				key="native"
+				dataSize={100}
+				itemRenderer={renderItem}
+				itemSize={52}
+				spacing={50}
+			/>
+			<Popup open={open} onClose={handleClose}>
+				<div>Hello Popup {selectedItem}</div>
+			</Popup>
 		</Panel>
 	);
 };
