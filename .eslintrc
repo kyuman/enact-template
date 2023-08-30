@@ -1,21 +1,6 @@
 {
-	"extends": [
-		"enact/strict",
-		"plugin:jest/recommended",
-		"plugin:prettier/recommended"
-	],
-	"plugins": ["prettier", "jest", "enact"],
-	"overrides": [
-		{
-			"files": [
-				"**/__tests__/**/*.[jt]s?(x)",
-				"**/?(*.)+(spec|test).[jt]s?(x)"
-			],
-			"extends": ["plugin:testing-library/react"]
-		}
-	],
+	"extends": ["enact-proxy/strict"],
 	"rules": {
-		"prettier/prettier": "error",
-		"jest/no-standalone-expect": 0
+		"indent": "off"
 	}
 }

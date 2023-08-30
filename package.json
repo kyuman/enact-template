@@ -51,15 +51,14 @@
 		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
-		"babel-eslint": "^10.1.0",
-		"eslint": "^7.32.0",
+		"eslint-config-enact-proxy": "^1.0.5",
 		"husky": "^4.3.8",
 		"lint-staged": "^12.1.7",
 		"prettier": "^2.5.1"
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "npm run build && npm run test:all && lint-staged"
+			"pre-commit": "npm run test:all"
 		}
 	},
 	"lint-staged": {
