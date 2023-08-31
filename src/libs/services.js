@@ -6,3 +6,6 @@ export const getSystemInfo = params =>
 
 const sam = request('luna://com.webos.applicationManager');
 export const launch = parameters => sam({method: 'launch', parameters});
+
+const audio = request('luna://com.webos.service.audio/master');
+export const getVolume = params => audio({method: 'getVolume', ...params});

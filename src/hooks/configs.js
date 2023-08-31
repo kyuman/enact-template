@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from 'react';
 
 import debugLog from '../libs/log';
-import {getSystemInfo} from '../libs/services';
+import {getVolume} from '../libs/services';
 
 export const useConfigs = () => {
 	const ref = useRef(null);
@@ -10,18 +10,17 @@ export const useConfigs = () => {
 
 	useEffect(() => {
 		if (!ref.current) {
-			debugLog('GET_CONFIGS[R]', {});
-			ref.current = getSystemInfo({
+			debugLog('GET_VOLUME[R]', {});
+			ref.current = getVolume({
 				parameters: {
 					subscribe: true,
-					keys: ['modelName', 'firmwareVersion', 'UHD', 'sdkVersion']
 				},
 				onSuccess: res => {
-					debugLog('GET_CONFIGS[S]', res);
+					debugLog('GET_VOLUME[S]', res);
 					setValue(res);
 				},
 				onFailure: err => {
-					debugLog('GET_CONFIGS[F]', err);
+					debugLog('GET_VOLUME[F]', err);
 				}
 			});
 		}
