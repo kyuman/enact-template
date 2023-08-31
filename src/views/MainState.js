@@ -11,9 +11,7 @@ export const usePopup = () => {
 	}, []);
 
 	const handlePopupClose = useCallback(() => {
-		services
-			.launch('com.webos.app.self-diagnosis')
-			.then(() => console.log('lauch app'));
+		services.launch({id:'com.webos.app.self-diagnosis'})
 		openPopup(false);
 	}, []);
 
