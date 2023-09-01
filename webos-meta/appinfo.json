@@ -1,5 +1,5 @@
 {
-	"id": "com.webos.app.enact-template",
+	"id": "com.app.enact-template",
 	"version": "1.0.0",
 	"vendor": "LG Electronics, Inc.",
 	"type": "web",
@@ -16,11 +16,9 @@
 	"noSplashOnLaunch": true,
 	"resolution": "1920x1080",
 	"resolutionIndependent": false,
-	"sysAssetsBasePath": "assets",
 	"supportPortraitMode": true,
 	"supportTouchMode": "full",
 	"transparent": false,
-	"trustLevel": "trusted",
 	"uiRevision": 2,
 	"useCamera": false,
 	"useGraphicCamera": false,
