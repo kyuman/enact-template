@@ -16,7 +16,6 @@
 	"noSplashOnLaunch": true,
 	"resolution": "1920x1080",
 	"resolutionIndependent": false,
-	"sysAssetsBasePath": "assets",
 	"supportPortraitMode": true,
 	"supportTouchMode": "full",
 	"transparent": false,
