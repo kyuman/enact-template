@@ -6,17 +6,19 @@ import {usePopup} from './MainState';
 
 import css from './Main.module.less';
 import $L from '@enact/i18n/$L';
-import {useConfigs} from '../hooks/configs';
+import { useProcStat, useUnitList } from '../hooks/useData';
 
 const Main = props => {
-	const data = useConfigs();
+	const procStat = useProcStat();
+	const unitList = useUnitList();
 	const {isPopupOpen, handlePopupOpen, handlePopupClose} = usePopup();
 
 	return (
 		<Panel {...props}>
 			<Header title={$L('Enact Template')} />
 			<BodyText>{$L('This is a main page of sample application.')}</BodyText>
-			<BodyText>{`TV Info : ${JSON.stringify(data)}`}</BodyText>
+			<BodyText>{`procStat : ${JSON.stringify(procStat)}`}</BodyText>
+			<BodyText>{`unitList : ${JSON.stringify(unitList)}`}</BodyText>
 			<Button onClick={handlePopupOpen} size="small" className={css.buttonCell}>
 				{$L('This is a main page of sample application.')}
 			</Button>

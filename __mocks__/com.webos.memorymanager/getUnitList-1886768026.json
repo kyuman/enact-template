@@ -1,0 +1,32 @@
+{
+    "ATSC3.0-NRT": 0,
+    "unitList": [
+        "TP ID                                 IN PL FG RC SZ   PD ",
+        "0  com.webos.app.browser              F  T  F  0  76   (1990)(1996)(1997)",
+        "0  com.webos.app.voice                F  T  F  0  38   (2276)",
+        "0  com.webos.app.livetv               F  T  F  0  22   (1834)",
+        "0  com.webos.app.hdmi2                F  T  F  0  22   (1835)",
+        "3  com.webos.app.inputcommon          F  F  F  0  28   (1831)",
+        "3  com.webos.app.homeconnect          F  F  F  0  55   (2933)",
+        "5  youtube.leanback.v4                F  F  F  0  126  (1894)",
+        "5  com.webos.app.home                 F  F  F  0  133  (1836)",
+        "9  Distributed                        F  F  F  0  0    ",
+        "11 EFS                                F  F  F  0  0    ",
+        "12 com.webos.app.store-demo           F  F  T  0  44   (1924)",
+        "12 com.webos.app.hdmi1                T  F  T  0  66   (1833)"
+    ],
+    "usable_memory": 895,
+    "swapUsed": 120,
+    "EFS_BufferCacheStat": {
+        "EFS_BC_CurrentSize": 23,
+        "EFS_BC_AccuShrinkSize": 0,
+        "EFS_BC_ZspageSize": 25,
+        "EFS_BC_AavailSize": 0,
+        "EFS_BC_compRate": 74
+    },
+    "returnValue": true,
+    "vmallocInfo": {
+        "cur_vmallocSize": 412,
+        "init_vmallocSize": 367
+    }
+}

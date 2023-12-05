@@ -1,8 +1,8 @@
 import {useCallback, useEffect} from 'react';
 import * as domEvents from '../constants/domEvents';
 import debugLog from '../libs/log';
-import {useConfigs} from '../hooks/configs';
 import {closeApp, isTVBrowser, reload} from '../libs/utils';
+import { useProcStat } from '../hooks/useData';
 
 const useVisibleChangeHandler = () =>
 	useCallback(() => {
@@ -67,5 +67,5 @@ export const useDocumentEvent = setSkinVariants => {
 
 // Add functions to subscribe luna APIs for general usage here
 export const useSubscriptions = () => {
-	useConfigs();
+	useProcStat();
 };
