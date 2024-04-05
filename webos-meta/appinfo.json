@@ -6,22 +6,12 @@
 	"main": "index.html",
 	"title": "Enact Template",
 	"accessibility": {"supportsAudioGuidance": true},
-	"allowAudioCapture": false,
-	"allowVideoCapture": false,
 	"disableBackHistoryAPI": true,
-	"handleScreenRemoteKey": true,
 	"icon": "icon.png",
 	"largeIcon": "icon.png",
-	"lockable": false,
-	"noSplashOnLaunch": true,
 	"resolution": "1920x1080",
-	"resolutionIndependent": false,
 	"supportPortraitMode": true,
 	"supportTouchMode": "full",
 	"transparent": false,
-	"uiRevision": 2,
-	"useCamera": false,
-	"useGraphicCamera": false,
-	"useNativeScroll": true,
-	"visible": true
+	"uiRevision": 2
 }
