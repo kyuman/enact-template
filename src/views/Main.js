@@ -6,31 +6,37 @@ import {usePopup} from './MainState';
 
 import css from './Main.module.less';
 import $L from '@enact/i18n/$L';
-import { useProcStat, useUnitList } from '../hooks/useData';
+import {useProcStat} from '../hooks/useData';
 
 const Main = props => {
 	const procStat = useProcStat();
-	const unitList = useUnitList();
-	const {isPopupOpen, handlePopupOpen, handlePopupClose} = usePopup();
+	const {isPopupOpen, handlePopupOpen, handlePopupClose, handleLaunchApp} =
+		usePopup();
 
 	return (
 		<Panel {...props}>
 			<Header title={$L('Enact Template')} />
 			<BodyText>{$L('This is a main page of sample application.')}</BodyText>
-			<BodyText>{`procStat : ${JSON.stringify(procStat)}`}</BodyText>
-			<BodyText>{`unitList : ${JSON.stringify(unitList)}`}</BodyText>
 			<Button onClick={handlePopupOpen} size="small" className={css.buttonCell}>
-				{$L('This is a main page of sample application.')}
+				{$L('Open Alert')}
 			</Button>
+			<BodyText>{`procStat : ${JSON.stringify(procStat)}`}</BodyText>
 			<Alert type="overlay" open={isPopupOpen} onClose={handlePopupClose}>
 				<span>{$L('This is an alert message.')}</span>
 				<buttons>
 					<Button
 						size="small"
 						className={css.buttonCell}
+						onClick={handleLaunchApp}
+					>
+						Launch
+					</Button>
+					<Button
+						size="small"
+						className={css.buttonCell}
 						onClick={handlePopupClose}
 					>
-						{$L('OK')}
+						{$L('Close')}
 					</Button>
 				</buttons>
 			</Alert>

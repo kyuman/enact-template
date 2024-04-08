@@ -5,7 +5,7 @@ import {isBrowser, isTVBrowser} from './utils';
 const debugLog = (msgId, values) => {
 	if (!isBrowser()) return;
 
-	const id = `ET_${msgId}`;
+	const id = `Enact_${msgId}`;
 
 	if (isTVBrowser()) {
 		info(id, values, '');

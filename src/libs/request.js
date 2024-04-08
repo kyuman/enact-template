@@ -4,13 +4,20 @@ import {isDevServe} from './utils';
 
 const send = (Req, service, params) => {
 	if (params.parameters?.subscribe) {
-		return new Req().send({...params, service});
+		return new Req().send({
+			service,
+			method: params?.method,
+			parameters: params?.parameters,
+			onSuccess: params?.onSuccess,
+			onFailure: params?.onFailure
+		});
 	}
 
 	return new Promise((onSuccess, onFailure) =>
 		new Req().send({
-			...params,
 			service,
+			method: params?.method,
+			parameters: params?.parameters,
 			onSuccess,
 			onFailure
 		})
