@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from 'react';
 
 import debugLog from '../libs/log';
-import {getProcStat, getUnitList} from '../libs/services';
+import {mem} from '../libs/services';
 
 export const useProcStat = () => {
 	const ref = useRef(null);
@@ -11,7 +11,8 @@ export const useProcStat = () => {
 	useEffect(() => {
 		if (!ref.current) {
 			debugLog('GET_PROC_STAT[R]', {});
-			ref.current = getProcStat({
+			ref.current = mem({
+				method: 'getProcStat',
 				parameters: {
 					subscribe: true
 				},
@@ -45,7 +46,8 @@ export const useUnitList = () => {
 	useEffect(() => {
 		if (!ref.current) {
 			debugLog('GET_UNIT_LIST[R]', {});
-			ref.current = getUnitList({
+			ref.current = mem({
+				method: 'getUnitList',
 				parameters: {
 					subscribe: true
 				},
