@@ -1,4 +1,3 @@
-import {configureStore} from '@reduxjs/toolkit';
 import {act, render, fireEvent} from '@testing-library/react';
 
 import {FloatingLayerDecorator} from '@enact/ui/FloatingLayer';
