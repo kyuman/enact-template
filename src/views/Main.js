@@ -6,8 +6,7 @@ import Icon from '@enact/sandstone/Icon';
 import TabLayout, {Tab} from '@enact/sandstone/TabLayout';
 import {Header, Panel} from '@enact/sandstone/Panels';
 import {scaleToRem} from '@enact/ui/resolution';
-import {useCallback, useContext} from 'react';
-import {PanelContext} from './Context';
+import {useCallback} from 'react';
 import {svgGenerator} from '../libs/svg';
 
 const tabsWithIcons = [
@@ -17,12 +16,11 @@ const tabsWithIcons = [
 ];
 
 const Main = props => {
-	const {setPanelData} = useContext(PanelContext);
 	const handleClick = useCallback(
 		index => () => {
-			setPanelData(prev => [...prev, {name: 'detail', data: {index}}]);
+			console.log("index : ", index)
 		},
-		[setPanelData]
+		[]
 	);
 
 	const images = new Array(20).fill().map((_, i) => (
@@ -49,11 +47,7 @@ const Main = props => {
 					<Scroller>{images}</Scroller>
 				</Tab>
 				<Tab title={tabsWithIcons[1].title} icon={tabsWithIcons[1].icon}>
-					<Button icon="demosync">Button 1</Button>
-					<Button icon="demosync">Button 2</Button>
-					<Button icon="demosync">Button 3</Button>
-					<Button icon="demosync">Button 4</Button>
-					<Button icon="demosync">Button 5</Button>
+					<ButtonTab onGoToDetail={props?.onGoToDetail} />
 				</Tab>
 				<Tab title={tabsWithIcons[2].title} icon={tabsWithIcons[2].icon}>
 					<Item slotBefore={<Icon>playcircle</Icon>}>Single Item</Item>
@@ -62,5 +56,17 @@ const Main = props => {
 		</Panel>
 	);
 };
+
+const ButtonTab = (props) => (
+	<>
+		<Button icon="demosync" onClick={props?.onGoToDetail}>
+			Button 1
+		</Button>
+		<Button icon="demosync">Button 2</Button>
+		<Button icon="demosync">Button 3</Button>
+		<Button icon="demosync">Button 4</Button>
+		<Button icon="demosync">Button 5</Button>
+	</>
+);
 
 export default Main;
