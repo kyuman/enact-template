@@ -1,8 +1,9 @@
-import {useCallback, useEffect} from 'react';
+import {useCallback, useContext, useEffect} from 'react';
 import * as domEvents from '../constants/domEvents';
 import debugLog from '../libs/log';
 import {closeApp, isTVBrowser, reload} from '../libs/utils';
-import { useProcStat } from '../hooks/useData';
+import {useProcStat} from '../hooks/useData';
+import {PanelContext} from '../views/Context';
 
 const useVisibleChangeHandler = () =>
 	useCallback(() => {
@@ -25,7 +26,10 @@ const useHighContrastChangeHandler = setSkinVariants =>
 	}, [setSkinVariants]);
 
 export const useBackHandler = () => {
+	const {setPanelData} = useContext(PanelContext);
+
 	return useCallback(() => {
+		setPanelData(prev => prev.slice(0, prev.length - 1));
 		debugLog('BACK[I]', {});
 	}, []);
 };
