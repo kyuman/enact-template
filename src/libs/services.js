@@ -1,6 +1,6 @@
 import request from '../libs/request';
 
-export const mem = params => request('luna://com.webos.memorymanager')(params);
+export const mem = callInfo => request('luna://com.webos.memorymanager')(callInfo);
 
-export const sam = params =>
-	request('luna://com.webos.applicationManager')(params);
+export const sam = callInfo =>
+	request('luna://com.webos.applicationManager')(callInfo);

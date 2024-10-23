@@ -4,6 +4,9 @@ import {useCallback, useState} from 'react';
 import {sam} from '../libs/services';
 import debugLog from '../libs/log';
 
+// example:
+//  luna://com.webos.applicationManager/launch '{"id":"com.webos.app.self-diagnosis"}'
+
 export const usePopup = () => {
 	const [isPopupOpen, openPopup] = useState(false);
 
@@ -12,7 +15,7 @@ export const usePopup = () => {
 			method: 'launch',
 			parameters: {id: 'com.webos.app.self-diagnosis'}
 		});
-		debugLog("SAM", result);
+		debugLog('SAM', result);
 		openPopup(false);
 	}, []);
 

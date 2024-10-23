@@ -4,6 +4,9 @@ import {useEffect, useRef, useState} from 'react';
 import debugLog from '../libs/log';
 import {mem} from '../libs/services';
 
+// example:
+//  luna://com.webos.memorymanager/getProcStat '{"subscribe":true}'
+
 export const useProcStat = () => {
 	const ref = useRef(null);
 	const [value, setValue] = useState({returnValue: false});
