@@ -1,6 +1,6 @@
 # Enact Framework와 webOS 앱 개발
 
-## Why: Enact Framework가 필요한 이유 (10분)
+## Why: Enact Framework가 필요한 이유
 
 ### webOS 플랫폼의 특징과 도전 과제
 - LG 스마트 TV, 디스플레이, 자동차 등 다양한 기기에서의 활용
@@ -12,7 +12,7 @@
 - 성능 최적화와 일관된 사용자 경험
 - 빠른 프로토타이핑과 개발 필요
 
-## What: Enact Framework 이해하기 (10분)
+## What: Enact Framework 이해하기
 
 ### Enact의 정의와 특징
 
@@ -23,9 +23,9 @@
 
 
 
-## How: 실전 개발 가이드 (40분)
+## How: 실전 개발 가이드
 
-### 개발 환경 구축 (20분)
+### 개발 환경 구축
 
 #### Enact CLI 및 webOS SDK 설치
 
@@ -135,7 +135,6 @@ const BodyTextExample = () => (
 ...중략...
   <BodyText
     size="large"      // small, large
-    spacing="small"   // none, small, large
     centered         // 가운데 정렬
   >
     본문 텍스트 내용입니다.
@@ -188,7 +187,7 @@ const AlertExample = () => {
 };
 ```
 
-### Simple Notification App 개발 (60분)
+### Simple Notification App 개발
 
 #### 알림 목록 UX 요구사항
 
@@ -217,70 +216,14 @@ const data = [
 ]
 ```
 
-### 기본 UI 구현 (40분)
+### 기본 UI 구현
 
 #### 알림 목록 표시 기능 구현
 
-```jsx
-// NotificationList.js 예시
-import { Header, Panel } from "@enact/sandstone/Panels";
-import Scroller from "@enact/sandstone/Scroller";
-import Item from "@enact/sandstone/Item";
-import Icon from "@enact/sandstone/Icon";
-
-const NotificationList = ({ notifications, onSelect }) => {
-  return (
-    <Panel>
-      <Header
-        title="알림 목록"
-        subtitle={`${notifications.length} 개의 알림`}
-      />
-      <Scroller>
-        {notifications.map((notification, index) => (
-          <Item
-            key={index}
-            slotBefore={<Icon>alert01</Icon>}
-            slotAfter={<Icon>trash</Icon>}
-            label={notification.date}
-            onClick={() => onSelect(notification)}
-          >
-            {notification.title}
-          </Item>
-        ))}
-      </Scroller>
-    </Panel>
-  );
-};
-
-export default NotificationList;
-```
-
 #### 알림 아이템 보기 기능 구현
 
-```jsx
-// NotificationDetail.js 예시
-import Alert from "@enact/sandstone/Alert";
-import BodyText from "@enact/sandstone/BodyText";
-import Button from "@enact/sandstone/Button";
 
-const NotificationDetail = ({ notification, open, onClose }) => {
-  return (
-    <Alert title={notification?.title} open={open}>
-      <BodyText size="small">
-        {notification?.date}에 받은 메시지 입니다.
-      </BodyText>
-      <BodyText>{notification?.message}</BodyText>
-      <buttons>
-        <Button onClick={onClose}>닫기</Button>
-      </buttons>
-    </Alert>
-  );
-};
-
-export default NotificationDetail;
-```
-
-### 알림 기능 구현 (20분)
+### 알림 데이터 연동 구현
 
 #### webOS 시스템 알림 API 연동
 
@@ -346,16 +289,41 @@ const NotificationService = {
 export default NotificationService
 ```
 
+```jsx
+// memService.js 예시
+import LS2Request from '@enact/webos/LS2Request';
+
+const memService = {
+	getProcStat: (onSuccess, onFailure) => {
+		new LS2Request().send({
+			service: 'luna://com.webos.memorymanager',
+			method: 'getProcStat',
+			parameters: {
+				subscribe: true
+			},
+			onSuccess,
+			onFailure
+		});
+	},
+	getUnitList: (onSuccess, onFailure) => {
+		new LS2Request().send({
+			service: 'luna://com.webos.memorymanager',
+			method: 'getUnitList',
+			parameters: {
+				subscribe: true
+			},
+			onSuccess,
+			onFailure
+		});
+	}
+};
+
+export default memService;
+
+```
 #### 상태 관리와 이벤트 처리
 
 ```jsx
-// App.js 예시
-import { useState, useEffect } from 'react'
-import NotificationList from '../views/MainPanel'
-import NotificationDetail from '../views/NotificationDetail'
-import { Panel } from '@enact/sandstone/Panels'
-import ThemeDecorator from '@enact/sandstone/ThemeDecorator'
-import NotificationService from '../services/service';
 
 const App = (props) => {
   const [notifications, setNotifications] = useState([])
@@ -371,9 +339,7 @@ const App = (props) => {
     setIsPopupOpen(true)
   }
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false)
-  }
+  ... 중략 ...
 
   return (
     <div {...props}>
@@ -395,9 +361,9 @@ const App = (props) => {
 export default ThemeDecorator(App)
 ```
 
-### 디버깅 및 배포 (20분)
+### 디버깅 및 배포
 
-#### 디버깅 방법 (20분)
+#### 디버깅 방법
 
 #### 로컬 개발 환경에서의 디버깅
 ```bash
@@ -430,7 +396,7 @@ window.location = "개발 서버 주소"
 ### 요약
 - Enact가 필요한 이유
 - Enact 기본 컴포넌트를 이용한 Notification 앱 개발
-- Enact 빌드 및 스토어 배포
+- Enact 디버깅 방법
 
 ### 실습중 궁금했던 점
 
