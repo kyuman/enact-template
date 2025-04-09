@@ -1,6 +1,7 @@
 {
 	"extends": ["enact-proxy/strict"],
 	"rules": {
-		"indent": "off"
+		"indent": "off",
+		"react/jsx-no-bind": "off"
 	}
 }

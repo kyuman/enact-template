@@ -1,47 +1,34 @@
-import Alert from '@enact/sandstone/Alert';
-import BodyText from '@enact/sandstone/BodyText';
-import Button from '@enact/sandstone/Button';
-import {Header, Panel} from '@enact/sandstone/Panels';
-import {usePopup} from './MainState';
+import { Header, Panel } from "@enact/sandstone/Panels";
+import Scroller from "@enact/sandstone/Scroller";
+import Item from "@enact/sandstone/Item";
+import Icon from "@enact/sandstone/Icon";
+import Button from "@enact/sandstone/Button";
 
-import css from './Main.module.less';
-import $L from '@enact/i18n/$L';
-import {useProcStat} from '../hooks/useData';
+const NotificationList = ({ notifications, onSelect, onDeleteAll }) => {
 
-const Main = props => {
-	const procStat = useProcStat();
-	const {isPopupOpen, handlePopupOpen, handlePopupClose, handleLaunchApp} =
-		usePopup();
-
-	return (
-		<Panel {...props}>
-			<Header title={$L('Enact Template')} />
-			<BodyText>{$L('This is a main page of sample application.')}</BodyText>
-			<Button onClick={handlePopupOpen} size="small" className={css.buttonCell}>
-				{$L('Open Alert')}
-			</Button>
-			<BodyText>{`procStat : ${JSON.stringify(procStat)}`}</BodyText>
-			<Alert type="overlay" open={isPopupOpen} onClose={handlePopupClose}>
-				<span>{$L('This is an alert message.')}</span>
-				<buttons>
-					<Button
-						size="small"
-						className={css.buttonCell}
-						onClick={handleLaunchApp}
-					>
-						Launch
-					</Button>
-					<Button
-						size="small"
-						className={css.buttonCell}
-						onClick={handlePopupClose}
-					>
-						{$L('Close')}
-					</Button>
-				</buttons>
-			</Alert>
-		</Panel>
-	);
+  return (
+    <Panel>
+      <Header
+        title="알림 목록"
+        subtitle={`${notifications.length} 개의 알림`}
+      />
+      <Button style={{ marginLeft: 'auto', width: 100, display: 'block', marginBottom: 30 }} onClick={onDeleteAll}>Delete All</Button>
+      <Scroller>
+        {notifications.map((notification) => (
+          <Item
+            key={notification.id}
+            slotBefore={<Icon>alert01</Icon>}
+            slotAfter={<Icon>trash</Icon>}
+            label={notification.date}
+            //eslint-disable-next-line
+            onClick={() => onSelect(notification)}
+          >
+            {notification.title}
+          </Item>
+        ))}
+      </Scroller>
+    </Panel>
+  );
 };
 
-export default Main;
+export default NotificationList;

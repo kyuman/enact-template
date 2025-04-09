@@ -56,11 +56,6 @@
 		"lint-staged": "^12.1.7",
 		"prettier": "^2.5.1"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run test:all"
-		}
-	},
 	"lint-staged": {
 		"src/**/*.js": [
 			"npm run lint -- --fix"

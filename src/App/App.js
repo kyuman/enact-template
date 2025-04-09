@@ -1,38 +1,59 @@
-import {useState} from 'react';
-import ThemeDecorator from '@enact/sandstone/ThemeDecorator';
-import Panels from '@enact/sandstone/Panels';
-import Main from '../views/Main';
-import {useBackHandler, useCloseHandler, useDocumentEvent} from './AppState';
-import {isDevServe} from '../libs/utils';
+import { useState, useEffect, useCallback } from 'react'
+import NotificationList from '../views/Main'
+import NotificationDetail from '../views/NotificationDetail'
+import { Panel } from '@enact/sandstone/Panels'
+import ThemeDecorator from '@enact/sandstone/ThemeDecorator'
+import NotificationService from '../service/notification';
+import DeleteAll from '../views/DeleteAll';
 
-/* istanbul ignore next*/
-if (isDevServe()) {
-	window.webOSSystem = {
-		highContrast: 'off',
-		close: () => {},
-		platformBack: () => {},
-		PmLogString: () => {},
-		screenOrientation: 'landscape',
-		setWindowOrientation: () => {}
-	};
+const App = (props) => {
+  const [notifications, setNotifications] = useState([])
+  const [selectedNotification, setSelectedNotification] = useState(null)
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const [isDeleteAllOpen, setIsDeleteAllOpen] = useState(false)
+
+  useEffect(() => {
+    NotificationService.getNotifications().then(data => setNotifications(data))
+  }, [])
+
+  const handleSelectNotification = useCallback(notification => {
+    setSelectedNotification(notification)
+    setIsPopupOpen(true)
+    NotificationService.createNotification(notification.message);
+  }, [])
+
+  const handleClosePopup = useCallback(() => {
+    setIsPopupOpen(false)
+  }, [])
+
+  const handleOpenDeleteAll = useCallback(() => {
+    setIsDeleteAllOpen(true)
+  }, [])
+
+  const handleCloseDeleteAll = useCallback(() => {
+    setIsDeleteAllOpen(false)
+  }, [])
+
+  return (
+    <div {...props}>
+      <Panel>
+        <NotificationList
+          notifications={notifications}
+          onSelect={handleSelectNotification}
+		  onDeleteAll={handleOpenDeleteAll}
+        />
+      </Panel>
+      <NotificationDetail
+        notification={selectedNotification}
+        open={isPopupOpen}
+        onClose={handleClosePopup}
+      />
+	  <DeleteAll
+        open={isDeleteAllOpen}
+        onClose={handleCloseDeleteAll}
+      />
+    </div>
+  )
 }
 
-const App = props => {
-	const [skinVariants, setSkinVariants] = useState({highContrast: false});
-	const handleBack = useBackHandler();
-	const handleClose = useCloseHandler();
-	useDocumentEvent(setSkinVariants);
-
-	return (
-		<Panels
-			{...props}
-			skinVariants={skinVariants}
-			onBack={handleBack}
-			onClose={handleClose}
-		>
-			<Main />
-		</Panels>
-	);
-};
-
-export default ThemeDecorator(App);
+export default ThemeDecorator(App)
