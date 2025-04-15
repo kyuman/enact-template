@@ -17,7 +17,7 @@ const NotificationList = ({ notifications, onSelect, onDeleteAll }) => {
         {notifications.map((notification) => (
           <Item
             key={notification.id}
-            slotBefore={<Icon>alert01</Icon>}
+            slotBefore={<Icon>notification</Icon>}
             slotAfter={<Icon>trash</Icon>}
             label={notification.date}
             //eslint-disable-next-line
