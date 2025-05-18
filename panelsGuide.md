@@ -69,10 +69,7 @@ export default ThemeDecorator(App);
 - `panelMapper` 함수를 통해 각 패널 데이터를 실제 컴포넌트로 변환합니다.
 - `switch` 문을 사용하여 패널 이름에 따라 적절한 컴포넌트를 반환합니다.
 - `panels` 의 index prop을 통해 현재 보여줄 패널을 결정합니다.
-
-### 3. 데이터 전달
-- 각 패널 컴포넌트에 `data` prop을 통해 필요한 데이터를 전달할 수 있습니다.
-
+- `panels` 의 onBack prop을 통해 Back 버튼의 이벤트를 핸들링 합니다.
 
 ## 실제 사용 예제
 
@@ -97,21 +94,8 @@ export const Provider = props => {
 };
 
 ```
-### Panels 맵핑 함수 사용
+### Context data 사용
 ```jsx
-const panelMapper = item => {
-	const {name, data} = item;
-	switch (name) {
-		case 'main':
-			return <Main key={name} data={data} />;
-		case 'detail':
-			return <DetailPanel key={name} data={data} />;
-		case 'setting':
-			return <SettingPanel key={name} data={data} />;
-		default:
-			return <Main key={name} />;
-	}
-};
 
 const App = props => {
 	const handleBack = useBackHandler();
